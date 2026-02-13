@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.web.servlet.NoHandlerFoundException;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -30,5 +32,15 @@ public class GlobalExceptionHandler {
         error.put("details", ex.getBindingResult().getFieldError().getDefaultMessage());
 
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+    
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleNotFound(NoHandlerFoundException ex) {
+        Map<String, Object> error = new HashMap<>();
+        error.put("timestamp", LocalDateTime.now());
+        error.put("message", "Not found");
+        error.put("details", ex.getRequestURL() + " does not exist");
+
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 }
