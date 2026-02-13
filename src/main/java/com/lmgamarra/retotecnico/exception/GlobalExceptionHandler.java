@@ -39,7 +39,7 @@ public class GlobalExceptionHandler {
         Map<String, Object> error = new HashMap<>();
         error.put("timestamp", LocalDateTime.now());
         error.put("message", "Not found");
-        error.put("details", ex.getRequestURL() + " does not exist");
+        error.put("path", ex.getRequestURL());
 
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
