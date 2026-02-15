@@ -45,7 +45,7 @@ mvn clean spring-boot:run
 Disponible en:
 http://localhost:8081
 
-##Base de datos (H2)
+## Base de datos (H2)
 Consola:
 http://localhost:8081/h2-console
 
@@ -56,8 +56,8 @@ Configuración:
 | User     | sa                 |
 | Password | (vacío)            |
 
-##Endpoints principales
-###Crear producto
+## Endpoints principales
+### Crear producto
 POST http://localhost:8081/api/products
 Body:
 {
@@ -67,10 +67,10 @@ Body:
   "active": true
 }
 
-###Obtener producto
+### Obtener producto
 GET http://localhost:8081/api/products/sku/KEY-001
 
-###Obtener producto CON PRECIO (endpoint principal del reto)
+### Obtener producto CON PRECIO (endpoint principal del reto)
 GET http://localhost:8081/api/products/sku/KEY-001/with-price
 {
   "id": 1,
@@ -82,14 +82,14 @@ GET http://localhost:8081/api/products/sku/KEY-001/with-price
 }
 Este endpoint consulta al microservicio ms-pricing usando WebClient reactivo
 
-###Endpoint de precios directo
+### Endpoint de precios directo
 GET http://localhost:8082/api/prices/KEY-001
 {
   "sku": "KEY-001",
   "price": 150.00
 }
 
-##Manejo de errores
+## Manejo de errores
 La API implementa manejo global de excepciones:
 | Código | Descripción                     |
 | ------ | ------------------------------- |
@@ -97,11 +97,11 @@ La API implementa manejo global de excepciones:
 | 404    | Producto o precio no encontrado |
 | 500    | Error interno del servidor      |
 
-##Consideraciones de arquitectura
+## Consideraciones de arquitectura
 ms-catalog es reactivo (WebFlux).
 La base de datos usa JPA (bloqueante), por lo que se ejecuta en boundedElastic() para no bloquear el event loop.
 Comunicación entre servicios mediante WebClient (no RestTemplate).
 Uso de DTOs para desacoplar entidades de la API.
 
-#Autor
+# Autor
 Luis Miguel Gamarra
